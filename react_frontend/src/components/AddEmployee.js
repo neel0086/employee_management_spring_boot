@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import EmployeeService from '../services/api.js'
+import { useNavigate } from 'react-router-dom';
 function AddEmployee() {
 
     const [employee, setEmployee] = useState({
@@ -8,6 +9,7 @@ function AddEmployee() {
         lName: "",
         emailId: "",
     });
+    const navigaye = useNavigate();
     const handleChange = (e) => {
         const value = e.target.value;
         setEmployee({ ...employee, [e.target.name]: value });
@@ -16,10 +18,12 @@ function AddEmployee() {
         try {
             const response = await EmployeeService.createEmployee(employee)
             console.log(response)
+            navigaye("/employee_list");
         }
         catch (e) {
             console.log(e)
         }
+        
     }
     return (
         <div className='h-screen w-screen text-Roboto overflow-x-hidden  pb-40 mt-5 bg-gradient-to-tr from-neutral-700 via-neutral-700 to-neutral-700'>

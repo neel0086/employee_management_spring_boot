@@ -9,5 +9,13 @@ class EmployeeService{
             console.log('Error while calling createEmployee API ', error);
         }
     }
+    getEmployees = async ()=>{
+        try{
+            return await axios.get(`${url}`)
+        }
+        catch(error){
+            console.log("Error while retriving the emplpoyees list",error);
+        }
+    }
 }
 export default new EmployeeService()
