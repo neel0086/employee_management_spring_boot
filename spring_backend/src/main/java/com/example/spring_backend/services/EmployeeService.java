@@ -8,4 +8,6 @@ public interface EmployeeService {
     Employee createEmployee(Employee employee);
 
     List<Employee> getAllEmployee();
+
+    Employee editEmployee(Long id, Employee employee);
 }

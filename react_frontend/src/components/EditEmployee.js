@@ -1,33 +1,33 @@
 import React, { useState } from 'react'
 import EmployeeService from '../services/api.js'
-import { useNavigate } from 'react-router-dom';
-function AddEmployee() {
+import { useNavigate, useParams } from 'react-router-dom';
 
+function EditEmployee() {
+    const { id } = useParams();
     const [employee, setEmployee] = useState({
         id: "",
         fName: "",
         lName: "",
         emailId: "",
     });
-    const navigaye = useNavigate();
+    const navigate = useNavigate();
     const handleChange = (e) => {
         const value = e.target.value;
         setEmployee({ ...employee, [e.target.name]: value });
     };
-    const saveEmployee = async (e) => {
-        e.preventDefault()
+    const updateEmployee = async () => {
         try {
-            const response = await EmployeeService.createEmployee(employee)
+            const response = await EmployeeService.createEmployee(employee,id)
             console.log(response)
-            navigaye("employee_list");
+            navigate("/employee_list");
         }
         catch (e) {
             console.log(e)
         }
         
     }
-    return (
-        <div className='h-screen w-screen text-Roboto overflow-x-hidden  pb-40 mt-5 bg-gradient-to-tr from-neutral-700 via-neutral-700 to-neutral-700'>
+  return (
+    <div className='h-screen w-screen text-Roboto overflow-x-hidden  pb-40 mt-5 bg-gradient-to-tr from-neutral-700 via-neutral-700 to-neutral-700'>
             <section className="w-100 mx-4 p-6 mx-auto flex justify-center rounded-md shadow-md dark:bg-gray-800 mt-20">
                 <div class="w-full max-w-xs">
                     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -77,7 +77,7 @@ function AddEmployee() {
 
                         <div class="flex items-center justify-between">
                             <button
-                                onClick={saveEmployee}
+                                onClick={updateEmployee}
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                 type="button"
                             >
@@ -92,7 +92,7 @@ function AddEmployee() {
                 </div>
             </section>
         </div>
-    )
+  )
 }
 
-export default AddEmployee
+export default EditEmployee

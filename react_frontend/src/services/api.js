@@ -17,5 +17,13 @@ class EmployeeService{
             console.log("Error while retriving the emplpoyees list",error);
         }
     }
+    editEmployees = async (employee,id) =>{
+        try{
+            return axios.put(url+"/"+id,employee)
+        }
+        catch(error){
+            console.log("Error ")
+        }
+    }
 }
 export default new EmployeeService()

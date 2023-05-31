@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import api from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 function EmployeesList() {
   const [employees, setEmployees] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       //   setLoading(true);
@@ -16,6 +19,12 @@ function EmployeesList() {
     };
     fetchData();
   }, []);
+
+  const editEmployee = (e, id) => {
+    e.preventDefault();
+    navigate(`/edit_employee/${id}`);
+  };
+
   return (
     <div className='h-screen w-screen text-Roboto overflow-x-hidden  pb-40 mt-5 bg-gradient-to-tr from-neutral-700 via-neutral-700 to-neutral-700'>
       <section className="w-100 mx-4 p-6 mx-auto flex justify-center rounded-md shadow-md dark:bg-gray-800 mt-20">
@@ -57,7 +66,7 @@ function EmployeesList() {
                     <td class="px-6 py-4">
                       {employee.emailId}
                     </td>
-                    <td class="px-6 py-4 text-right">
+                    <td onClick={(e)=>editEmployee(e,employee.id)} class="px-6 py-4 text-right">
                       <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                     </td>
                   </tr>
